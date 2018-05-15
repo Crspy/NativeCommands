@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="NativeCommands.cpp" />
+    <ClCompile Include="CommandsFrom0To99.cpp" />
+    <ClCompile Include="CommandsFrom100To199.cpp" />
+    <ClCompile Include="CommandsFrom200To299.cpp" />
+    <ClCompile Include="CommandsFrom300To399.cpp" />
+    <ClCompile Include="CommandsFrom400To499.cpp" />
+    <ClCompile Include="CommandsFrom500To599.cpp" />
+    <ClCompile Include="CommandsFrom600To699.cpp" />
+    <ClCompile Include="CommandsFrom700To799.cpp" />
+    <ClCompile Include="CommandsFrom800To899.cpp" />
+    <ClCompile Include="CommandsFrom900To999.cpp" />
+    <ClCompile Include="CommandsFrom1000To1099.cpp" />
+    <ClCompile Include="CommandsFrom1100To1199.cpp" />
+    <ClCompile Include="CommandsFrom1200To1299.cpp" />
+    <ClCompile Include="CommandsFrom1300To1399.cpp" />
+    <ClCompile Include="CommandsFrom1400To1499.cpp" />
+    <ClCompile Include="CommandsFrom1500To1599.cpp" />
+    <ClCompile Include="CommandsFrom1600To1699.cpp" />
+    <ClCompile Include="CommandsFrom1700To1799.cpp" />
+    <ClCompile Include="CommandsFrom1800To1899.cpp" />
+    <ClCompile Include="CommandsFrom1900To1999.cpp" />
+    <ClCompile Include="CommandsFrom2000To2099.cpp" />
+    <ClCompile Include="CommandsFrom2100To2199.cpp" />
+    <ClCompile Include="CommandsFrom2200To2299.cpp" />
+    <ClCompile Include="CommandsFrom2300To2399.cpp" />
+    <ClCompile Include="CommandsFrom2400To2499.cpp" />
+    <ClCompile Include="CommandsFrom2500To2599.cpp" />
+    <ClCompile Include="CommandsFrom2600To2699.cpp" />
+    <ClCompile Include="CStaticScript.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NativeCommands.h" />
+    <ClInclude Include="CommandsFrom0To99.h" />
+    <ClInclude Include="CommandsFrom100To199.h" />
+    <ClInclude Include="CommandsFrom200To299.h" />
+    <ClInclude Include="CommandsFrom300To399.h" />
+    <ClInclude Include="CommandsFrom400To499.h" />
+    <ClInclude Include="CommandsFrom500To599.h" />
+    <ClInclude Include="CommandsFrom600To699.h" />
+    <ClInclude Include="CommandsFrom700To799.h" />
+    <ClInclude Include="CommandsFrom800To899.h" />
+    <ClInclude Include="CommandsFrom900To999.h" />
+    <ClInclude Include="CommandsFrom1000To1099.h" />
+    <ClInclude Include="CommandsFrom1100To1199.h" />
+    <ClInclude Include="CommandsFrom1200To1299.h" />
+    <ClInclude Include="CommandsFrom1300To1399.h" />
+    <ClInclude Include="CommandsFrom1400To1499.h" />
+    <ClInclude Include="CommandsFrom1500To1599.h" />
+    <ClInclude Include="CommandsFrom1600To1699.h" />
+    <ClInclude Include="CommandsFrom1700To1799.h" />
+    <ClInclude Include="CommandsFrom1800To1899.h" />
+    <ClInclude Include="CommandsFrom1900To1999.h" />
+    <ClInclude Include="CommandsFrom2000To2099.h" />
+    <ClInclude Include="CommandsFrom2100To2199.h" />
+    <ClInclude Include="CommandsFrom2200To2299.h" />
+    <ClInclude Include="CommandsFrom2300To2399.h" />
+    <ClInclude Include="CommandsFrom2400To2499.h" />
+    <ClInclude Include="CommandsFrom2500To2599.h" />
+    <ClInclude Include="CommandsFrom2600To2699.h" />
+    <ClInclude Include="CStaticScript.h" />
+  </ItemGroup>
+</Project>
