@@ -30,10 +30,26 @@
 #include "CMenuManager.h"
 #include "CClock.h"
 #include "CModelInfo.h"
+#include "CTheCarGenerators.h"
+#include "extensions\ScriptCommands.h"
+#include "CUserDisplay.h"
+#include "CRadar.h"
 
 using namespace plugin;
 
-enum class eLocateCommand
+enum eOnScreenTimer
+{
+    TIMER_UP,
+    TIMER_DOWN
+};
+
+enum eCounterDisplay
+{
+    COUNTER_DISPLAY_NUMBER,
+    COUNTER_DISPLAY_BAR
+};
+
+enum eLocateCommand
 {
     LOCATE_ANY_MEANS,
     LOCATE_ON_FOOT,
@@ -43,6 +59,7 @@ enum class eLocateCommand
 class CStaticScript
 {
 public:
+    static CRunningScript script;
     template<eLocateCommand type, bool IS_3D, bool bStopped>
     static bool LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius, bool bSphere);
     template<eLocateCommand type, bool IS_3D>

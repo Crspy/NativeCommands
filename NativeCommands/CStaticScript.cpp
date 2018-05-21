@@ -1,5 +1,14 @@
 #include "CStaticScript.h"
 
+CRunningScript CStaticScript::script = []()
+{
+    memset(&script, 0, sizeof(CRunningScript));
+    script.Init();
+    strcpy(script.m_szName, "natives");
+    script.m_bIsMission = false;
+    script.m_bUseMissionCleanup = false;
+    return script;
+}();
 
 template<eLocateCommand type, bool IS_3D, bool bStopped>
 bool CStaticScript::LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius, bool bSphere)
@@ -12,11 +21,9 @@ bool CStaticScript::LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius
     if (bSphere)
     {
         if (IS_3D)
-            CTheScripts::HighlightImportantArea(0, posn.x - radius.x, posn.y - radius.y, posn.x + radius.x,
-                posn.y + radius.y, posn.z);
+            CTheScripts::HighlightImportantArea(0, min_posn_x, min_posn_y, max_posn_x, max_posn_y, posn.z);
         else
-            CTheScripts::HighlightImportantArea(0, posn.x - radius.x, posn.y - radius.y, posn.x + radius.x,
-                posn.y + radius.y, -100.0f);
+            CTheScripts::HighlightImportantArea(0, min_posn_x, min_posn_y, max_posn_x, max_posn_y, -100.0f);
     }
 
     if (CTheScripts::DbgFlag)

@@ -19,10 +19,8 @@ namespace Natives
         }
         CPlayerPed::SetupPlayerPed(playerid);
         CPed* playerped = CWorld::Players[playerid].m_pPed;
-        if (scriptEntity)
-            playerped->m_nCreatedBy = 2;
-        else
-            playerped->m_nCreatedBy = 1;
+        playerped->m_nCreatedBy = scriptEntity ? 2 : 1;
+
         CPlayerPed::DeactivatePlayerPed(playerid);
         posn.z += playerped->GetDistanceFromCentreOfMassToBaseOfModel();
         playerped->SetPosn(posn);

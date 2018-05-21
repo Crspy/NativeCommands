@@ -329,8 +329,7 @@ namespace Natives
 
     bool IS_POINT_ON_SCREEN(CVector& posn, float radius)
     {
-        return ((bool(__thiscall *)(CCamera*,CVector *, float))0x420D40)(&TheCamera,&posn, radius); // CCamera__isSphereVisible()
-        
+        return TheCamera.IsSphereVisible(&posn, radius);
     }
 
     void DEBUG_ON()
