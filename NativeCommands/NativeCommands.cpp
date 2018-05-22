@@ -2,10 +2,9 @@
 
 namespace Natives
 {
-
     void ACTIVATE_CHEAT(int CheatIndex)
     {
-        void(*cheatfunc)();
+        void (*cheatfunc)();
 
         cheatfunc = CCheat::m_aCheatFunctions[CheatIndex];
         if (cheatfunc)

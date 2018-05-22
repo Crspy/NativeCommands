@@ -3,10 +3,9 @@
 
 namespace Natives
 {
-    
     CPed* CREATE_CHAR_AS_PASSENGER(CVehicle* pVehicle, ePedType pedtype, int modelindex, int seat, bool scriptEntity)
     {
-        CPed *pPed;
+        CPed* pPed;
 
         plugin::CallMethodDynGlobal<CRunningScript *, ePedType, int *>
             (gaddrof(CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType), nullptr, pedtype, &modelindex);

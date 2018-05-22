@@ -28,7 +28,7 @@ namespace Natives
     //00AA
     CVector& GET_CAR_COORDINATES(CVehicle* pVehicle);
     //00AB , 088C
-    void SET_CAR_COORDINATES(CVehicle* pVehicle,CVector& posn,bool bNoOffset);
+    void SET_CAR_COORDINATES(CVehicle* pVehicle, CVector& posn, bool bNoOffset);
     //00AD
     void SET_CAR_CRUISE_SPEED(CVehicle* pVehicle, float speed);
     //00AE
@@ -59,5 +59,4 @@ namespace Natives
     void DEBUG_ON();
     //00C4
     void DEBUG_OFF();
-
 }

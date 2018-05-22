@@ -31,7 +31,7 @@
 #include "CClock.h"
 #include "CModelInfo.h"
 #include "CTheCarGenerators.h"
-#include "extensions\ScriptCommands.h"
+#include "extensions/ScriptCommands.h"
 #include "CUserDisplay.h"
 #include "CRadar.h"
 
@@ -60,8 +60,8 @@ class CStaticScript
 {
 public:
     static CRunningScript script;
-    template<eLocateCommand type, bool IS_3D, bool bStopped>
+    template <eLocateCommand type, bool IS_3D, bool bStopped>
     static bool LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius, bool bSphere);
-    template<eLocateCommand type, bool IS_3D>
+    template <eLocateCommand type, bool IS_3D>
     static bool LocateCharCharCommand(CPed* pPed, CPed* pPed2, CVector& radius, bool bSphere);
 };

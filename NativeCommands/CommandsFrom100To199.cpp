@@ -2,10 +2,9 @@
 
 namespace Natives
 {
-    
     CPed* CREATE_CHAR(ePedType pedtype, int modelindex, CVector& posn, bool scriptEntity)
     {
-        CPed *pPed;
+        CPed* pPed;
 
         plugin::CallMethodDynGlobal<CRunningScript *, ePedType, int *>
             (gaddrof(CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType), nullptr, pedtype, &modelindex);
@@ -49,13 +48,13 @@ namespace Natives
         return pPed;
     }
 
-    
+
     void DELETE_CHAR(CPed* pPed)
     {
         CTheScripts::RemoveThisPed(pPed);
     }
 
-    
+
     CVector& GET_CHAR_COORDINATES(CPed* pPed)
     {
         CVector* posn;
@@ -63,7 +62,6 @@ namespace Natives
         if (pPed->m_nPedFlags.bInVehicle && vehicle)
         {
             posn = &vehicle->GetPosition();
-
         }
         else
         {
@@ -73,49 +71,44 @@ namespace Natives
     }
 
 
-    
     void SET_CHAR_COORDINATES(CPed* pPed, CVector& posn, bool bWarpGang, bool bNoOffset)
     {
         plugin::CallMethodDynGlobal<CRunningScript *, CPed *, float, float, float, bool, bool>
             (gaddrof(CRunningScript::SetCharCoordinates), nullptr, pPed, posn.x, posn.y, posn.z, bWarpGang, !bNoOffset);
     }
 
-    
+
     bool IS_CHAR_IN_AREA_2D(CPed* pPed, CVector2D& fromPos, CVector2D& toPos, bool bSphere)
     {
+        if (bSphere)
+            CTheScripts::HighlightImportantArea(0, fromPos.x, fromPos.y, toPos.x, toPos.y, -100.0f);
+
         CVehicle* vehicle = pPed->m_pVehicle;
         if (pPed->m_nPedFlags.bInVehicle && vehicle)
         {
             return vehicle->IsWithinArea(fromPos.x, fromPos.y, toPos.x, toPos.y);
         }
-        else
-        {
-            return pPed->IsWithinArea(fromPos.x, fromPos.y, toPos.x, toPos.y);
-        }
-        if (bSphere)
-            CTheScripts::HighlightImportantArea(0, fromPos.x, fromPos.y, toPos.x, toPos.y, -100.0f);
+        return pPed->IsWithinArea(fromPos.x, fromPos.y, toPos.x, toPos.y);
+
     }
 
-    
+
     bool IS_CHAR_IN_AREA_3D(CPed* pPed, CVector& fromPos, CVector& toPos, bool bSphere)
     {
-        CVehicle* vehicle = pPed->m_pVehicle;
-        if (pPed->m_nPedFlags.bInVehicle && vehicle)
-        {
-            return vehicle->IsWithinArea(fromPos.x, fromPos.y, fromPos.z, toPos.x, toPos.y, toPos.z);
-        }
-        else
-        {
-            return pPed->IsWithinArea(fromPos.x, fromPos.y, fromPos.z, toPos.x, toPos.y, toPos.z);
-        }
         if (bSphere)
         {
             float sphereZ = (fromPos.z + toPos.z) * 0.5f;
             CTheScripts::HighlightImportantArea(0, fromPos.x, fromPos.y, toPos.x, toPos.y, sphereZ);
         }
+        CVehicle* vehicle = pPed->m_pVehicle;
+        if (pPed->m_nPedFlags.bInVehicle && vehicle)
+        {
+            return vehicle->IsWithinArea(fromPos.x, fromPos.y, fromPos.z, toPos.x, toPos.y, toPos.z);
+        }
+        return pPed->IsWithinArea(fromPos.x, fromPos.y, fromPos.z, toPos.x, toPos.y, toPos.z);
     }
 
-    
+
     CVehicle* CREATE_CAR(int modelid, CVector& posn, bool scriptEntity)
     {
         CVehicle* vehicle = CCarCtrl::CreateCarForScript(modelid, posn, 0);
@@ -123,7 +116,7 @@ namespace Natives
         return vehicle;
     }
 
-    
+
     void DELETE_CAR(CVehicle* pVehicle)
     {
         if (!pVehicle) return;
@@ -133,26 +126,26 @@ namespace Natives
         operator_delete<CVehicle>(pVehicle);
     }
 
-    
+
     void CAR_GOTO_COORDINATES(CVehicle* pVehicle, CVector& posn)
     {
         posn.z += pVehicle->GetDistanceFromCentreOfMassToBaseOfModel();
 
         bool bSuccess = CCarCtrl::JoinCarWithRoadSystemGotoCoors(pVehicle, posn, false, false) ? false : true;
 
-        eCarMission CarMission = pVehicle->m_autoPilot.m_nCarMission;
+        eCarMission& CarMission = pVehicle->m_autoPilot.m_nCarMission;
 
         if (bSuccess)
         {
-            if (CarMission != eCarMission::MISSION_39 && CarMission != eCarMission::MISSION_3A)
-                CarMission = eCarMission::MISSION_GOTOCOORDS;
+            if (CarMission != MISSION_39 && CarMission != MISSION_3A)
+                CarMission = MISSION_GOTOCOORDS;
         }
-        else if (CarMission != eCarMission::MISSION_39 && CarMission != eCarMission::MISSION_3A)
+        else if (CarMission != MISSION_39 && CarMission != MISSION_3A)
         {
-            CarMission = eCarMission::MISSION_GOTOCOORDS_STRAIGHT;
+            CarMission = MISSION_GOTOCOORDS_STRAIGHT;
         }
         //pVehicle->m_nType = (pVehicle->m_nType & 7) | 0x18;
-        pVehicle->m_nStatus = eEntityStatus::STATUS_PHYSICS;
+        pVehicle->m_nStatus = STATUS_PHYSICS;
         // pVehicle->SetEngineState(1);
         if (pVehicle->m_nFlags.bEngineBroken)
         {
@@ -172,13 +165,13 @@ namespace Natives
         pVehicle->m_autoPilot.m_nTimeToStartMission = CTimer::m_snTimeInMilliseconds;
     }
 
-    
+
     void CAR_WANDER_RANDOMLY(CVehicle* pVehicle)
     {
         CCarCtrl::JoinCarWithRoadSystem(pVehicle);
-        eCarMission CarMission = pVehicle->m_autoPilot.m_nCarMission;
-        if (CarMission != eCarMission::MISSION_39 && CarMission != eCarMission::MISSION_3A)
-            CarMission = eCarMission::MISSION_CRUISE;
+        eCarMission& CarMission = pVehicle->m_autoPilot.m_nCarMission;
+        if (CarMission != MISSION_39 && CarMission != MISSION_3A)
+            CarMission = MISSION_CRUISE;
 
         // pVehicle->SetEngineState(1);
         if (pVehicle->m_nFlags.bEngineBroken)
@@ -197,15 +190,15 @@ namespace Natives
         pVehicle->m_autoPilot.m_nTimeToStartMission = CTimer::m_snTimeInMilliseconds;
     }
 
-    
+
     void CAR_SET_IDLE(CVehicle* pVehicle)
     {
-        eCarMission CarMission = pVehicle->m_autoPilot.m_nCarMission;
-        if (CarMission != eCarMission::MISSION_39 && CarMission != eCarMission::MISSION_3A)
-            CarMission = eCarMission::MISSION_NONE;
+        eCarMission& CarMission = pVehicle->m_autoPilot.m_nCarMission;
+        if (CarMission != MISSION_39 && CarMission != MISSION_3A)
+            CarMission = MISSION_NONE;
     }
 
-    
+
     CVector& GET_CAR_COORDINATES(CVehicle* pVehicle)
     {
         CVector* posn;
@@ -214,13 +207,13 @@ namespace Natives
         return *posn;
     }
 
-    
+
     void SET_CAR_COORDINATES(CVehicle* pVehicle, CVector& posn, bool bNoOffset)
     {
         CCarCtrl::SetCoordsOfScriptCar(pVehicle, posn.x, posn.y, posn.z, 0, !bNoOffset);
     }
 
-    
+
     void SET_CAR_CRUISE_SPEED(CVehicle* pVehicle, float speed)
     {
         float transmMaxCruise = pVehicle->m_pHandlingData->m_transmissionData.field_5C * 60.0f;
@@ -231,17 +224,17 @@ namespace Natives
         pVehicle->m_autoPilot.m_nCruiseSpeed = speed;
     }
 
-    
+
     void SET_CAR_DRIVING_STYLE(CVehicle* pVehicle, eCarDrivingStyle drivingstyle)
     {
         pVehicle->m_autoPilot.m_nCarDrivingStyle = drivingstyle;
     }
 
-    
+
     void SET_CAR_MISSION(CVehicle* pVehicle, eCarMission CarMission)
     {
-        eCarMission currentMission = pVehicle->m_autoPilot.m_nCarMission;
-        if (currentMission != eCarMission::MISSION_39 && currentMission != eCarMission::MISSION_3A)
+        eCarMission& currentMission = pVehicle->m_autoPilot.m_nCarMission;
+        if (currentMission != MISSION_39 && currentMission != MISSION_3A)
             currentMission = CarMission;
 
         pVehicle->m_autoPilot.m_nTimeToStartMission = CTimer::m_snTimeInMilliseconds;
@@ -256,17 +249,17 @@ namespace Natives
         }
     }
 
-    
+
     bool IS_CAR_IN_AREA_2D(CVehicle* pVehicle, CVector2D& fromPos, CVector2D& toPos, bool bSphere)
-    {     
+    {
         if (bSphere)
             CTheScripts::HighlightImportantArea(0, fromPos.x, fromPos.y, toPos.x, toPos.y, -100.0f);
         return pVehicle->IsWithinArea(fromPos.x, fromPos.y, toPos.x, toPos.y);
     }
 
-    
+
     bool IS_CAR_IN_AREA_3D(CVehicle* pVehicle, CVector& fromPos, CVector& toPos, bool bSphere)
-    {        
+    {
         if (bSphere)
         {
             float sphereZ = (fromPos.z + toPos.z) * 0.5f;
@@ -275,16 +268,17 @@ namespace Natives
         return pVehicle->IsWithinArea(fromPos.x, fromPos.y, fromPos.z, toPos.x, toPos.y, toPos.z);
     }
 
-    
-    void PRINT_BIG(char* message,unsigned int time,eMessageStyle style)
+
+    void PRINT_BIG(char* message, unsigned int time, eMessageStyle style)
     {
         CMessages::AddBigMessage(message, time, style);
     }
 
-    
+
     void PRINT(char* message, unsigned int time, unsigned short flag)
     {
-        if (message && message[0] == '~' && message[1] == 'z' && message[2] == '~' && !FrontEndMenuManager.m_bShowSubtitles)
+        if (message && message[0] == '~' && message[1] == 'z' && message[2] == '~' && !FrontEndMenuManager.
+            m_bShowSubtitles)
         {
             CTheScripts::bAddNextMessageToPreviousBriefs = true;
         }
@@ -294,34 +288,35 @@ namespace Natives
         }
     }
 
-    
+
     void PRINT_NOW(char* message, unsigned int time, unsigned short flag)
     {
-        if (!message || message[0] != '~' || message[1] != 'z' || message[2] != '~' || FrontEndMenuManager.m_bShowSubtitles)
+        if (!message || message[0] != '~' || message[1] != 'z' || message[2] != '~' || FrontEndMenuManager.
+            m_bShowSubtitles)
         {
             CMessages::AddMessageJumpQ(message, time, flag, CTheScripts::bAddNextMessageToPreviousBriefs);
         }
         CTheScripts::bAddNextMessageToPreviousBriefs = true;
     }
 
-    
+
     void CLEAR_PRINTS()
     {
         CMessages::ClearMessages(false);
     }
 
-    void GET_TIME_OF_DAY(unsigned char& Ret_Hours,unsigned char& Ret_Minutes)
+    void GET_TIME_OF_DAY(unsigned char& Ret_Hours, unsigned char& Ret_Minutes)
     {
         Ret_Hours = CClock::ms_nGameClockHours;
         Ret_Minutes = CClock::ms_nGameClockMinutes;
     }
 
-    
+
     void SET_TIME_OF_DAY(unsigned char Hours, unsigned char Minutes)
     {
-        CClock::SetGameClock(Hours, Minutes,0);
+        CClock::SetGameClock(Hours, Minutes, 0);
     }
-    
+
     unsigned short GET_MINUTES_TO_TIME_OF_DAY(unsigned char Hours, unsigned char Minutes)
     {
         return CClock::GetGameClockMinutesUntil(Hours, Minutes);
@@ -336,11 +331,9 @@ namespace Natives
     {
         CTheScripts::DbgFlag = true;
     }
+
     void DEBUG_OFF()
     {
         CTheScripts::DbgFlag = false;
     }
-
-
-
 }

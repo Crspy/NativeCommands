@@ -4,7 +4,7 @@
 namespace Natives
 {
     //@opcode0137
-    bool IS_CAR_MODEL(CVehicle* pVehicle,int modelindex);
+    bool IS_CAR_MODEL(CVehicle* pVehicle, int modelindex);
 
     //@opcode 014B
     //@Alarm_chances are The chances of the cars alarm going off ( 0 - 255 )
@@ -13,7 +13,8 @@ namespace Natives
     //@color ids depends on the carcols.dat
     //@return CCarGenerator index/handle in CTheCarGenerators::CarGeneratorArray
     int CREATE_CAR_GENERATOR(CVector& posn, float Heading, int modelindex, short color1_ID, short color2_ID,
-        bool bForceSpawn, unsigned char Alarm_chances, unsigned char DoorLock_chances, int delayStart, int delayEnd);
+                             bool bForceSpawn, unsigned char Alarm_chances, unsigned char DoorLock_chances,
+                             int delayStart, int delayEnd);
 
     //@opcode 014C
     //@num_generations  
@@ -45,7 +46,7 @@ namespace Natives
     bool IS_CHAR_IN_ZONE(CPed* pPed, char* zoneName);
 
     //@opcode 0158
-    void POINT_CAMERA_AT_CAR(CVehicle* pVehicle,eCamMode camMode,eSwitchType switchType);
+    void POINT_CAMERA_AT_CAR(CVehicle* pVehicle, eCamMode camMode, eSwitchType switchType);
 
     //@opcode 0159
     void POINT_CAMERA_AT_CHAR(CPed* pPed, eCamMode camMode, eSwitchType switchType);
@@ -160,7 +161,4 @@ namespace Natives
 
     //@opcode 018F
     bool IS_CAR_STUCK_ON_ROOF();
-
-
 }
-

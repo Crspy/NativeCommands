@@ -12,9 +12,9 @@ namespace Natives
     //00DB
     bool IS_CHAR_IN_CAR(CPed* pPed, CVehicle* pVehicle);
     //00DD
-    bool IS_CHAR_IN_MODEL(CPed*  pPed, int modelindex);
+    bool IS_CHAR_IN_MODEL(CPed* pPed, int modelindex);
     //00DF
-    bool IS_CHAR_IN_ANY_CAR(CPed*  pPed);
+    bool IS_CHAR_IN_ANY_CAR(CPed* pPed);
     //00E1
     bool IS_BUTTON_PRESSED(unsigned short playerid, eButtonID buttonID);
     //00E2
@@ -56,7 +56,7 @@ namespace Natives
     //0106
     bool LOCATE_CHAR_IN_CAR_CHAR_3D(CPed* pPed, CPed* pTargetPed, CVector& radius, bool bSphere);
     //0107 , 029B
-    CObject* CREATE_OBJECT(int modelIndex, CVector& posn,eObjectType objectType,bool bNoOffset);
+    CObject* CREATE_OBJECT(int modelIndex, CVector& posn, eObjectType objectType, bool bNoOffset);
     //0108
     void DELETE_OBJECT(CObject* pObject);
     //0109
@@ -66,9 +66,9 @@ namespace Natives
     //010B
     int GET_PLAYER_SCORE(int playerid);
     //010D , 010E
-    void ALTER_WANTED_LEVEL(int playerid,int wantedLevel, bool bNoDrop);
+    void ALTER_WANTED_LEVEL(int playerid, int wantedLevel, bool bNoDrop);
     //010F
-    bool IS_WANTED_LEVEL_GREATER(int playerid, int wantedlevel);
+    bool IS_WANTED_LEVEL_GREATER(int playerid, unsigned int wantedlevel);
     //0110
     void CLEAR_WANTED_LEVEL(int playerid);
     //0111

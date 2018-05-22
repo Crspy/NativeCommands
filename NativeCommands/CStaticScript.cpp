@@ -10,7 +10,7 @@ CRunningScript CStaticScript::script = []()
     return script;
 }();
 
-template<eLocateCommand type, bool IS_3D, bool bStopped>
+template <eLocateCommand type, bool IS_3D, bool bStopped>
 bool CStaticScript::LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius, bool bSphere)
 {
     const float min_posn_x = posn.x - radius.x;
@@ -37,8 +37,8 @@ bool CStaticScript::LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius
             return false;
     }
 
-    CVector* PedPosn;
-    if (type == eLocateCommand::LOCATE_ANY_MEANS)
+    CVector* PedPosn = nullptr;
+    if (type == LOCATE_ANY_MEANS)
     {
         CVehicle* PedVeh = pPed->m_pVehicle;
         if (pPed->m_nPedFlags.bInVehicle && PedVeh)
@@ -47,13 +47,13 @@ bool CStaticScript::LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius
             PedPosn = &pPed->GetPosition();
     }
 
-    else if (type == eLocateCommand::LOCATE_ON_FOOT)
+    else if (type == LOCATE_ON_FOOT)
     {
         if (pPed->m_nPedFlags.bInVehicle) return false;
         PedPosn = &pPed->GetPosition();
     }
 
-    else if (type == eLocateCommand::LOCATE_IN_CAR)
+    else if (type == LOCATE_IN_CAR)
     {
         if (!pPed->m_nPedFlags.bInVehicle) return false;
 
@@ -89,7 +89,7 @@ bool CStaticScript::LocateCharCommand(CPed* pPed, CVector& posn, CVector& radius
     return true;
 }
 
-template<eLocateCommand type, bool IS_3D>
+template <eLocateCommand type, bool IS_3D>
 bool CStaticScript::LocateCharCharCommand(CPed* pPed, CPed* pPed2, CVector& radius, bool bSphere)
 {
     CVector* targPedPosn;
@@ -99,26 +99,26 @@ bool CStaticScript::LocateCharCharCommand(CPed* pPed, CPed* pPed2, CVector& radi
     else
         targPedPosn = &pPed2->GetPosition();
 
-    const float min_targPedposn_x = targPedPosn.x - radius.x;
-    const float min_targPedposn_y = targPedPosn.y - radius.y;
-    const float max_targPedposn_x = targPedPosn.x + radius.x;
-    const float max_targPedposn_y = targPedPosn.y + radius.y;
+    const float min_targPedposn_x = targPedPosn->x - radius.x;
+    const float min_targPedposn_y = targPedPosn->y - radius.y;
+    const float max_targPedposn_x = targPedPosn->x + radius.x;
+    const float max_targPedposn_y = targPedPosn->y + radius.y;
 
     if (bSphere)
     {
         if (IS_3D)
             CTheScripts::HighlightImportantArea(0, min_targPedposn_x, min_targPedposn_y,
-                max_targPedposn_x, max_targPedposn_y, targPedPosn->z);
+                                                max_targPedposn_x, max_targPedposn_y, targPedPosn->z);
         else
             CTheScripts::HighlightImportantArea(0, min_targPedposn_x, min_targPedposn_y,
-                max_targPedposn_x, max_targPedposn_y, -100.0f);
+                                                max_targPedposn_x, max_targPedposn_y, -100.0f);
     }
 
     if (CTheScripts::DbgFlag)
         CTheScripts::DrawDebugCube(min_targPedposn_x, min_targPedposn_y, max_targPedposn_x, max_targPedposn_y);
 
-    CVector * PedPosn;
-    if (type == eLocateCommand::LOCATE_ANY_MEANS)
+    CVector* PedPosn = nullptr;
+    if (type == LOCATE_ANY_MEANS)
     {
         CVehicle* PedVeh = pPed->m_pVehicle;
         if (pPed->m_nPedFlags.bInVehicle && PedVeh)
@@ -127,13 +127,13 @@ bool CStaticScript::LocateCharCharCommand(CPed* pPed, CPed* pPed2, CVector& radi
             PedPosn = &pPed->GetPosition();
     }
 
-    else if (type == eLocateCommand::LOCATE_ON_FOOT)
+    else if (type == LOCATE_ON_FOOT)
     {
         if (pPed->m_nPedFlags.bInVehicle) return false;
         PedPosn = &pPed->GetPosition();
     }
 
-    else if (type == eLocateCommand::LOCATE_IN_CAR)
+    else if (type == LOCATE_IN_CAR)
     {
         if (!pPed->m_nPedFlags.bInVehicle) return false;
 
@@ -164,5 +164,4 @@ bool CStaticScript::LocateCharCharCommand(CPed* pPed, CPed* pPed2, CVector& radi
     }
 
     return true;
-
 }

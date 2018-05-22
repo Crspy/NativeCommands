@@ -1,10 +1,8 @@
 #include "CommandsFrom1300To1399.h"
 
 
-
 namespace Natives
 {
-    
     bool HAS_CHAR_BEEN_DAMAGED_BY_CHAR(CPed* ped, CPed* byPed)
     {
         bool result = false;
@@ -20,13 +18,13 @@ namespace Natives
         return result;
     }
 
-    
+
     void MAKE_HELI_COME_CRASHING_DOWN(CHeli* heli)
     {
-        if (!(heli->m_autoPilot.m_nCarMission == eCarMission::MISSION_39)
-            && !(heli->m_autoPilot.m_nCarMission == eCarMission::MISSION_3A))
+        if (!(heli->m_autoPilot.m_nCarMission == MISSION_39)
+            && !(heli->m_autoPilot.m_nCarMission == MISSION_3A))
         {
-            heli->m_autoPilot.m_nCarMission = eCarMission::MISSION_3A;
+            heli->m_autoPilot.m_nCarMission = MISSION_3A;
         }
     }
 }
