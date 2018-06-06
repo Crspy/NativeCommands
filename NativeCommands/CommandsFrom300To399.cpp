@@ -34,7 +34,7 @@ namespace Natives
 
     void DISPLAY_ONSCREEN_TIMER(int id, eOnScreenTimer direction)
     {
-        if (direction)
+        if (direction == eOnScreenTimer::TIMER_DOWN)
         {
             CUserDisplay::OnscnTimer.AddClock((unsigned int)&CStaticScript::script.m_aLocalVars[id].iParam, nullptr,
                                               direction);

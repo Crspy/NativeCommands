@@ -221,7 +221,7 @@ namespace Natives
         {
             speed = transmMaxCruise;
         }
-        pVehicle->m_autoPilot.m_nCruiseSpeed = speed;
+        pVehicle->m_autoPilot.m_nCruiseSpeed = (char)speed;
     }
 
 

@@ -17,7 +17,7 @@ namespace Natives
             CStreaming::LoadAllRequestedModels(true);
         }
         CPlayerPed::SetupPlayerPed(playerid);
-        CPed* playerped = CWorld::Players[playerid].m_pPed;
+        CPlayerPed* playerped = CWorld::Players[playerid].m_pPed;
         playerped->m_nCreatedBy = scriptEntity ? 2 : 1;
 
         CPlayerPed::DeactivatePlayerPed(playerid);
@@ -27,11 +27,11 @@ namespace Natives
         CPlayerPed::ReactivatePlayerPed(playerid);
         playerped->m_pIntelligence->m_TaskMgr.SetTask(new CTaskSimplePlayerOnFoot(), 4, false);
         //playerped->m_pIntelligence->m_TaskMgr.SetTask(operator_new<CTaskSimplePlayerOnFoot>(), 4, false);
-        return static_cast<CPlayerPed*>(playerped);
+        return playerped;
     }
 }
 
-
+/*
 CPlayerPed* CreatePlayerPed(int playerid, CVector& posn)
 {
     if (CStreaming::ms_aInfoForModel[0].m_nLoadState != 1)
@@ -61,3 +61,4 @@ CPlayerPed* CreatePlayerPed(int playerid, CVector& posn)
     //playerped->m_pIntelligence->m_TaskMgr.SetTask(operator_new<CTaskSimplePlayerOnFoot>(), 4, false);
     return player;
 }
+*/

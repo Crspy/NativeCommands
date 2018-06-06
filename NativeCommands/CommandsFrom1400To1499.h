@@ -4,5 +4,5 @@
 namespace Natives
 {
     //0583
-    bool IS_PLAYER_IN_INFO_ZONE(char zoneName[8]);
+    bool IS_PLAYER_IN_INFO_ZONE(const char zoneName[8]);
 }
